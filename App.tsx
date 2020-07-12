@@ -1,19 +1,25 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+import Routes from './src/routes';
+import { AuthProvider } from './src/contexts/auth';
+import { CarProvider } from './src/contexts/car';
 
-export default function App() {
+const App: React.FC = () => {
+  useEffect(() => {
+    SplashScreen.preventAutoHideAsync();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
+    <NavigationContainer>
+      <AuthProvider>
+        <CarProvider>
+          <Routes />
+        </CarProvider>
+      </AuthProvider>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
